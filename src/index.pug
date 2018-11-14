@@ -1,0 +1,192 @@
+doctype html
+html(lang='en-us')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='Infinite news')
+    link(rel='shortcut icon', type='image/png', href='../assets/favicon.ico')
+    title Newsfinity
+    style.
+      body, html {
+        overflow-x: hidden;
+      }
+      body {
+        background: #34435a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      .item {
+        display: flex;
+        padding: 20px;
+        position: relative;
+        flex-direction: column;
+      }
+      .item:nth-child(odd) {
+        border-right: 6px solid #eee;
+        border-left: 6px solid #ccc;
+      }
+      .item:nth-child(even) {
+        border-left: 6px solid #eee;
+        border-right: 6px solid #ccc;
+      }
+      .item:first-child {
+        padding-top: 70px;
+      }
+      .item.loading p,
+      .item.loading img.image {
+        animation-duration: 2s;
+        animation-fill-mode: forwards;
+        animation-iteration-count: infinite;
+        animation-name: placeHolderShimmer;
+        animation-timing-function: linear;
+        background: #f6f7f8;
+        background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+        background-size: 1000px 10px;
+        position: relative;
+      }
+      .item.loading .time {
+        animation-delay: 0.45s;
+      }
+
+      .item .overlay {
+        backface-visibility: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: white;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+      }
+      .item.loading .overlay {
+        opacity: 0.5;
+      }
+      .item .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+      }
+      .item .title {
+        font-size: 14px;
+        font-weight: bold;
+        min-width: 40%;
+      }
+      .item .title a {
+        color: #000;
+        text-decoration: none;
+      }
+      .item .title a:hover {
+        text-decoration: underline;
+      }
+      .item .author {
+        color: #666;
+        display: inline-block;
+        font-size: 14px;
+        min-width: 30%;
+        margin-bottom: 5px;
+      }
+      .item .time {
+        font-size: 14px;
+        text-align: right;
+        min-width: 20%;
+        white-space: nowrap;
+        color: #ccc;
+        flex-shrink: 0;
+        margin-left: 10px;
+      }
+      .item .text {
+        font-size: 14px;
+      }
+      p {
+        margin: 0;
+        color: #14171a;
+      }
+      .container {
+        width: 100%;
+        max-width: 700px;
+        background: white;
+      }
+      header {
+        width: calc(100% - 12px);
+        max-width: 688px;
+        height: 50px;
+        z-index: 9;
+        background: rgba(255, 255, 255, 0.97);
+        position: fixed;
+        top: 0;
+        font-size: 12px;
+        padding-left: 16px;
+        padding-right: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        backface-visibility: hidden;
+      }
+      header p {
+        color: #666;
+        text-align: right;
+        line-height: 18px;
+      }
+      header a {
+        color: #666;
+      }
+      body {
+        font-family: 'Helvetica';
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
+        align-items: center;
+      }
+      img.image {
+        margin-bottom: 10px;
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        background: #eee;
+      }
+      #logo {
+        cursor: pointer;
+      }
+      @media (min-width: 320px) and (max-width: 480px) {
+        img.image {
+          height: 180px;
+        }
+        .item,
+        .item:nth-child(odd),
+        .item:nth-child(even) {
+          border-left: none;
+          border-right: none;
+          border-bottom: 2px solid #eee;
+        }
+        header {
+          width: 100%;
+          max-width: 700px;
+        }
+      }
+      .item .content {
+        flex-grow: 1;
+      }
+
+      @keyframes placeHolderShimmer{
+          0%{
+              background-position: -1000px 0
+          }
+          100%{
+              background-position: 1000px 0
+          }
+      }
+  body
+    header
+      img#logo(height="25", src="data:image/svg+xml;base64,CgkJPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHdpZHRoPSIzMTAyLjIxNDY1MDc2NjYxMDIiIGhlaWdodD0iNjY0LjM5NTIyOTk4Mjk2NDMiPgoKCQkJPGcgdHJhbnNmb3JtPSJzY2FsZSg1LjExMDczMjUzODMzMDQ5NDUpIHRyYW5zbGF0ZSgxMCwgMTApIj4KCQkJCTxkZWZzIGlkPSJTdmdqc0RlZnMxMTkyIi8+PGcgaWQ9IlN2Z2pzRzExOTMiIGZlYXR1cmVLZXk9InJvb3QiIGZpbGw9IiMwMDAiLz48ZyBpZD0iU3ZnanNHMTE5NCIgZmVhdHVyZUtleT0idGV4dDQiIGZpbGw9IiMzNDQzNWEiIHRyYW5zZm9ybT0ibWF0cml4KDkuNjg5OTI0NTU4MDYxNDk3LDAsMCw5LjY4OTkyNDU1ODA2MTQ5NywtMS42Mjc5MjYxMDM1MzE3MTg3LC0xMjQuMTA4NTc1ODQ0MjAwNjMpIj48cGF0aCBkPSJNOS44IDE3LjQgbDAgNC4xIHEwIDEuMzIgMC40OCAxLjk4IHEtMC43NiAwLjY4IC0xLjgyIDAuNjggcS0xLjA0IDAgLTEuNDIgLTAuNDggdC0wLjM4IC0xLjQ2IGwwIC00LjI2IHEwIC0wLjY4IC0wLjE4IC0xIHQtMC43IC0wLjMyIHEtMC4zIDAgLTAuNjggMC4xNiB0LTAuNzggMC41MiBsMCA2LjY4IHEtMC4zNCAwLjA2IC0wLjc0IDAuMDkgdC0wLjgyIDAuMDMgdC0wLjgyIC0wLjAzIHQtMC43NCAtMC4wOSBsMCAtOS45OCBsMC4xNCAtMC4xNCBsMS4xOCAwIHExLjIyIDAgMS42NCAxLjIgcTEuNCAtMS4yNCAyLjc4IC0xLjI0IHExLjQgMCAyLjEzIDAuOTcgdDAuNzMgMi41OSB6Ii8+PC9nPjxnIGlkPSJTdmdqc0cxMTk1IiBmZWF0dXJlS2V5PSJ0ZXh0MSIgZmlsbD0iIzAwMCIgdHJhbnNmb3JtPSJtYXRyaXgoNC4yMDc1NzQ0MDkxODE1OTgsMCwwLDQuMjA3NTc0NDA5MTgxNTk4LDExMS42MDQ0OTA5OTA5NTI3MywtMTIuMjQ0MDQ2OTA3Njc3MDE3KSI+PHBhdGggZD0iTTEyLjI4IDEwLjIgbDAuMTQgMC4xNCBsMCAxMy42IHEtMC44IDAuMTggLTEuODkgMC4xOCB0LTEuOTMgLTAuMTIgbC0zLjE0IC03LjE2IHEtMC41NiAtMS4yMiAtMS4xNCAtMi44MiBsLTAuMDYgMC4wMiBxMC4yNCAyLjkyIDAuMjQgNS45OCBsMCAzLjk4IHEtMC42MiAwLjEyIC0xLjUgMC4xMiB0LTEuNDggLTAuMTIgbDAgLTEzLjYgcTAuNzYgLTAuMTggMS44MyAtMC4xOCB0MS45MSAwLjEyIGwzLjEgNy4xNCBxMC44NCAxLjk4IDEuMjQgMy4wNCBsMC4wOCAtMC4wNCBxLTAuMjQgLTIuNzggLTAuMjQgLTUuOSBsMCAtMi40NCBxMCAtMS4wNCAwLjQyIC0xLjQ5IHQxLjM2IC0wLjQ1IGwxLjA2IDAgeiBNMTguNTggMTkuOTYgbC0wLjAyIDEuNDQgbDAgMC4wMiBxMC45MiAtMC4wNCAxLjQ4IC0wLjA0IGw0LjY0IDAgcTAgMC43NCAtMC4wNiAxLjE0IHEtMC4yNCAxLjU0IC0yLjA0IDEuNTQgbC01LjMyIDAgcS0wLjg2IDAgLTEuMzUgLTAuNSB0LTAuNDkgLTEuMzYgbDAgLTExLjcyIGwwLjE0IC0wLjE0IGw4LjYyIDAgcTAuMTIgMC41OCAwLjEyIDEuMjYgdC0wLjI4IDEuNDIgbC01LjQ2IDAgbDAuMDIgMS40NCBsMCAxLjQgcTAuNTIgLTAuMDIgMS4zNiAtMC4wMiBsMy4wNiAwIHEwLjE4IDAuNTYgMC4xOCAxLjI4IHQtMC4xOCAxLjMyIGwtNC40MiAwIGwwIDEuNTIgeiBNMjguMDQwMDAwMDAwMDAwMDAzIDIyLjY4IGwtMi4zNiAtMTIuMTYgcTAuOTYgLTAuMzYgMS43IC0wLjM2IHEwLjg0IDAgMS4yMiAwLjM3IHQwLjU0IDEuMzkgbDAuODQgNS4xNiBxMC4zOCAyLjMyIDAuNDggMy4yNCB0MC4xMyAwLjk2IHQwLjEzIDAuMDQgbDEuNjYgLTEwLjcyIHEwLjc0IC0wLjE0IDIuMDYgLTAuMTQgdDIuMDQgMC4xNCBsMS41MiAxMC40NiBxMC4wMiAwLjE4IDAuMDcgMC4yMiB0MC4xNSAwLjA0IHEwLjE4IC0xLjg4IDAuNiAtNC4yNiBsMS4xMiAtNi43MiBxMC41OCAtMC4xMiAxLjM0IC0wLjEyIHEwLjkyIDAgMS42MiAwLjIyIGwwLjE0IDAuMTggbC0yLjY0IDEzLjM2IHEtMS4zIDAuMTQgLTIuNDQgMC4xNCB0LTEuNjIgLTAuMjggdC0wLjYyIC0xLjE2IGwtMC42OCAtNC4zNCBxLTAuMzYgLTIuMzYgLTAuNTggLTQuNjQgbC0wLjE0IDAgcS0wLjIyIDEuOTQgLTAuNjYgNC42NCBsLTAuOSA1LjY0IHEtMS4zNiAwLjE0IC0yLjQ3IDAuMTQgdC0xLjU5IC0wLjI4IHQtMC42NiAtMS4xNiB6IE00My43Mzk5OTk5OTk5OTk5OTUgMjIuODIgcTAuMDYgLTAuNjYgMC40MSAtMS4zMiB0MC44MyAtMS4wOCBxMi4xNCAxLjMgNC4wNiAxLjMgcTAuODQgMCAxLjIzIC0wLjM4IHQwLjM5IC0wLjk0IHEwIC0wLjk0IC0xLjI2IC0xLjQ4IGwtMi4zNiAtMSBxLTEuMzggLTAuNjIgLTIuMTIgLTEuNDkgdC0wLjc0IC0yLjIxIHEwIC0wLjkyIDAuMzcgLTEuNjggdDEuMDQgLTEuMzIgdDEuNTkgLTAuODcgdDIuMDQgLTAuMzEgcTIuMjQgMCA0LjUyIDEuMTQgcS0wLjEgMS41NCAtMS4wOCAyLjQgcS0yLjA0IC0wLjk4IC0zLjYgLTAuOTggcS0wLjggMCAtMS4yIDAuMzYgdC0wLjQgMC44MiBxMCAwLjc4IDEuMTggMS4yNiBsMi40IDEuMDIgcTEuNTIgMC42NCAyLjI3IDEuNjQgdDAuNzUgMi4zMiBxMCAwLjk0IC0wLjM0IDEuNzIgdC0xLjAxIDEuMzUgdC0xLjY3IDAuODkgdC0yLjM0IDAuMzIgcS0yLjYgMCAtNC45NiAtMS40OCB6IE01OS4yOCAxMy4wNiBsMC4wMiAxLjU2IGwwIDEuMjYgbDQuMjggMCBxMC4xNiAwLjYgMC4xNiAxLjMxIHQtMC4xNiAxLjMxIGwtNC4yOCAwIGwwIDUuNSBxLTAuNjQgMC4xMiAtMS42IDAuMTIgdC0xLjYgLTAuMTIgbDAgLTEzLjU0IGwwLjE0IC0wLjEyIGw4LjU2IDAgcTAuMTIgMC41IDAuMTIgMS4yNSB0LTAuNDEgMS4xMSB0LTEuMjkgMC4zNiBsLTMuOTQgMCB6IE02Ni44NCAyNCBsMCAtMTMuNjYgcTAuNjIgLTAuMTIgMS42IC0wLjEyIHQxLjYyIDAuMTIgbDAgMTMuNjYgcS0wLjY0IDAuMTIgLTEuNjIgMC4xMiB0LTEuNiAtMC4xMiB6IE04My45IDEwLjIgbDAuMTQgMC4xNCBsMCAxMy42IHEtMC44IDAuMTggLTEuODkgMC4xOCB0LTEuOTMgLTAuMTIgbC0zLjE0IC03LjE2IHEtMC41NiAtMS4yMiAtMS4xNCAtMi44MiBsLTAuMDYgMC4wMiBxMC4yNCAyLjkyIDAuMjQgNS45OCBsMCAzLjk4IHEtMC42MiAwLjEyIC0xLjUgMC4xMiB0LTEuNDggLTAuMTIgbDAgLTEzLjYgcTAuNzYgLTAuMTggMS44MyAtMC4xOCB0MS45MSAwLjEyIGwzLjEgNy4xNCBxMC44NCAxLjk4IDEuMjQgMy4wNCBsMC4wOCAtMC4wNCBxLTAuMjQgLTIuNzggLTAuMjQgLTUuOSBsMCAtMi40NCBxMCAtMS4wNCAwLjQyIC0xLjQ5IHQxLjM2IC0wLjQ1IGwxLjA2IDAgeiBNODcuMTAwMDAwMDAwMDAwMDEgMjQgbDAgLTEzLjY2IHEwLjYyIC0wLjEyIDEuNiAtMC4xMiB0MS42MiAwLjEyIGwwIDEzLjY2IHEtMC42NCAwLjEyIC0xLjYyIDAuMTIgdC0xLjYgLTAuMTIgeiBNOTguNTgwMDAwMDAwMDAwMDEgMTIuOTggbDAuMDIgMS40OCBsMCA5LjU0IHEtMC42OCAwLjEyIC0xLjYyIDAuMTIgdC0xLjU4IC0wLjEyIGwwIC0xMS4wMiBsLTEuMjggMC4wMiBsLTIuMDYgMCBxLTAuMTIgLTAuNTggLTAuMTIgLTEuMzMgdDAuMTIgLTEuMzMgbDkuOSAwIHEwLjE2IDAuNTIgMC4xNiAxLjI2IHQtMC40IDEuMDcgdC0xLjI4IDAuMzMgbC0wLjU4IDAgbC0xLjI2IC0wLjAyIGwtMC4wMiAwIHogTTEwOC42NDAwMDAwMDAwMDAwMSAxMy43MiBsMS4zNCAtMy4zOCBxMC41MiAtMC4xMiAxLjM0IC0wLjEyIHEwLjg4IDAgMS41MiAwLjI0IGwwLjE0IDAuMTYgbC0zLjg4IDkuMTggbDAgNC4yIHEtMC42MiAwLjEyIC0xLjYgMC4xMiB0LTEuNiAtMC4xMiBsMCAtNC4yOCBsLTMuODYgLTkgcTAuOTIgLTAuNTQgMS43NiAtMC41NCB0MS4yMSAwLjI5IHQwLjY1IDAuOTkgbDAuOTYgMi4zOCBxMC41MiAxLjI4IDAuOSAyLjg2IGwwLjEyIDAgcTAuMzIgLTEuMjYgMSAtMi45OCB6Ii8+PC9nPgoJCQk8L2c+CgkJPC9zdmc+Cg==")
+      p
+        | I am&nbsp;
+        a(href="https://github.com/jgranstrom/newsfinity") open source
+        | &nbsp;and powered by&nbsp;
+        a(href="https://newsapi.org") newsapi.org
+    .container#container
+    script(src='./index.ts')

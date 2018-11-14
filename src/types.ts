@@ -1,0 +1,1 @@
+export interface ItemData { time: Date, title: string; text: string; author: string, image: string; url: string; }
