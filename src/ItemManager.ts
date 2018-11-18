@@ -10,10 +10,14 @@ function imageErrorHandler(event: Event) {
 };
 
 export class ItemManager {
-  constructor(private container: HTMLDivElement, private collection: HTMLCollectionOf<Element>) {}
+  constructor(
+    private container: HTMLDivElement,
+    private scroll: HTMLDivElement,
+    private itemCollection: HTMLCollectionOf<Element>,
+  ) {}
 
   get count() {
-    return this.collection.length;
+    return this.itemCollection.length;
   }
 
   private createItem(template: string, ...classList) {
@@ -24,14 +28,23 @@ export class ItemManager {
     return item;
   }
 
+  private createScrollItem(...classList) {
+    const item = document.createElement('div');
+    item.classList.add('scroll-item', ...classList);
+    this.scroll.appendChild(item);
+    return item;
+  }
+
   addNewsItems(count: number) {
-    const items: HTMLDivElement[] = [];
+    const containerItems: HTMLDivElement[] = [];
+    const scrollItems: HTMLDivElement[] = [];
 
     for(let i = 0; i < count; i++) {
-      items.push(this.createItem(itemNewsTemplate, 'loading'));
+      containerItems.push(this.createItem(itemNewsTemplate, 'loading'));
+      scrollItems.push(this.createScrollItem());
     }
 
-    return items;
+    return { containerItems, scrollItems };
   }
 
   addEndItem() {
@@ -39,7 +52,7 @@ export class ItemManager {
   }
 
   updateNewsItem(index: number, data: ItemData) {
-    const item = this.collection.item(index) as HTMLDivElement;
+    const item = this.itemCollection.item(index) as HTMLDivElement;
     item.querySelector<HTMLParagraphElement>('.title').innerHTML = `<a href="${data.url}">${data.title}</a>`;
     item.querySelector<HTMLParagraphElement>('.text').innerHTML = data.text;
     item.querySelector<HTMLParagraphElement>('.author').innerHTML = data.author;
